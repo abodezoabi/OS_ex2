@@ -1,0 +1,78 @@
+Question 1+2: running the game only no parameters
+./mync -e "./ttt 123456789"
+
+Question 3 :
+     * tcp server
+    ./mync -e "./ttt 123456789" -i TCPS4050
+    ./mync -e "./ttt 123456789" -o TCPS4050
+    ./mync -e "./ttt 123456789" -b TCPS4050
+
+     * tcp client
+    ./mync -e "./ttt 123456789" -i TCPClocalhost,4050
+    ./mync -e "./ttt 123456789" -o TCPClocalhost,4050
+    ./mync -e "./ttt 123456789" -b TCPClocalhost,4050
+
+    * nc TCP server:
+    nc -l -p 4050
+
+    * nc TCP client:
+    nc localhost 4050
+
+    Question 3.5: (kind of chat without -e):
+    ./mync -i TCPS4050
+    ./mync -i TCPC4050
+
+ Question 4:
+    * udp
+        * udp server
+        ./mync -e "./ttt 123456789" -i UDPS4050 -t 5
+
+        * udp client
+        ./mync -e "./ttt 123456789" -o UDPC127.0.0.1,4455 -t 5
+
+        *Both TCP and UDP
+         nc -l -p 6699  server
+         ./mync -e "./ttt 123456789" -i UDPS4050 -o TCPClocalhost,4455 server & client
+          nc -u localhost 4269   client
+
+
+
+    * UnixDomainSocket
+
+    *Datagram
+    ./mync -e "./ttt 123456789" -i UDSSD/tmp/mysocket
+    ./mync -e "./ttt 123456789" -o UDSCD/tmp/mysocket
+
+    * stream
+            * stream server
+            ./mync -e "./ttt 123456789" -i UDSSS/tmp/mysocket
+            ./mync -e "./ttt 123456789" -o UDSSS/tmp/mysocket
+            ./mync -e "./ttt 123456789" -b UDSSS/tmp/mysocket
+
+            * stream client
+            ./mync -e "./ttt 123456789" -i UDSCS/tmp/mysocket
+            ./mync -e "./ttt 123456789" -o UDSCS/tmp/mysocket
+            ./mync -e "./ttt 123456789" -b UDSCS/tmp/mysocket
+
+
+
+* Netcat
+* UDP server:
+nc -u -l -p 4050
+
+* UDP client:
+nc -u localhost 4050
+
+* Unix domain socket stream server:
+nc -lU /tmp/mysocket
+
+* Unix domain socket stream client:
+nc -U /tmp/mysocket
+
+*Socat for Unix Domain Datagram
+
+* Unix domain socket datagram server:
+socat UNIX-RECVFROM:/tmp/mysocket,fork -
+
+* Unix domain socket datagram client:
+socat - UNIX-SENDTO:/tmp/mysocket
