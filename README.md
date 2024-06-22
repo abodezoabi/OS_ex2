@@ -60,7 +60,6 @@ Unix Domain Socket Stream Client:
 ```
 Unix Domain Socket Datagram Server:
 ```sh
-Copy code
 ./mync -e "./ttt 123456789" -i UDSSD<socket_path>
 ```
 Unix Domain Socket Datagram Client:
